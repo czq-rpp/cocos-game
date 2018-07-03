@@ -1,7 +1,7 @@
 # cocos-game
 > cocos游戏引擎学习，新手上路
 
-#代码编辑环境配置（推荐使用vscode）
+##代码编辑环境配置（推荐使用vscode）
 1、安装 Cocos Creator API 适配插件：开发者 -> VS Code 工作流 -> 安装 VS Code 扩展插件；
 
 
@@ -33,7 +33,7 @@
         "temp/": true
     }
 }
-
+```
 vscode配置文件里加入。
 
 
@@ -66,11 +66,11 @@ c、Code -> 首选项 -> 键盘快捷方式，keybindings.json：
 （3）调试
 
 
-#项目结构
+##项目结构
 1、版本控制：assets、settings、project.json
 2、不需要进入版本控制：library、local、build
 
 
 
 
-#编辑器基础
+##编辑器基础
