@@ -47,16 +47,18 @@
 
 
 
-4、使用 VS Code 激活脚本编译：
+### 使用 VS Code 激活脚本编译：
 
-（1） 安装 cURL：http://www.confusedbycode.com/curl/；
-（2） 添加 VS Code 编译任务：
+- 安装 cURL：http://www.confusedbycode.com/curl/；
+- 添加 VS Code 编译任务：
 
-a、开发者 -> VS Code 工作流 -> 添加编译任务，（.vscode 和 tasks.json）；
+1. 开发者 -> VS Code 工作流 -> 添加编译任务，（.vscode 和 tasks.json）；
 
-b、在 VS Code 里按下 Cmd/Ctrl+p，激活 快速打开 输入框，然后输入 task compile；
+2. 在 VS Code 里按下 Cmd/Ctrl+p，激活 快速打开 输入框，然后输入 task compile；
 
-c、Code -> 首选项 -> 键盘快捷方式，keybindings.json：
+3. Code -> 首选项 -> 键盘快捷方式，keybindings.json：
+
+```js
 [
     {
         "key": "ctrl+p", //请配置自己习惯的快捷键
@@ -64,19 +66,18 @@ c、Code -> 首选项 -> 键盘快捷方式，keybindings.json：
         "args": "compile"
     }
 ]
+```
 
+### 使用 VS Code 调试网页版游戏
 
-
-5、使用 VS Code 调试网页版游戏
-
-（1）安装VS Code 插件：Debugger for Chrome；
-（2）开发者->VS Code 工作流->添加 Chrome Debug 配置（.vscode/launch.json）
-（3）调试
+- 安装VS Code 插件：Debugger for Chrome；
+- 开发者->VS Code 工作流->添加 Chrome Debug 配置（.vscode/launch.json）
+- 调试
 
 
 ## 项目结构
-1、版本控制：assets、settings、project.json
-2、不需要进入版本控制：library、local、build
+- 版本控制：assets、settings、project.json
+- 不需要进入版本控制：library、local、build
 
 
 
