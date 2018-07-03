@@ -66,3 +66,10 @@ c、Code -> 首选项 -> 键盘快捷方式，keybindings.json：
 
 
 #项目结构
+1、版本控制：assets、settings、project.json
+2、不需要进入版本控制：library、local、build
+
+
+
+
+#编辑器基础
