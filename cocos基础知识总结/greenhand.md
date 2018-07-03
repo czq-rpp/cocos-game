@@ -49,7 +49,7 @@
 
 ### 使用 VS Code 激活脚本编译：
 
-- [安装 cURL](#http://www.confusedbycode.com/curl/)；
+- [安装 cURL](http://www.confusedbycode.com/curl/)；
 - 添加 `VS Code` 编译任务：
 
 1. `开发者` -> `VS Code 工作流` -> `添加编译任务`，（`.vscode` 和 `tasks.json`）；
