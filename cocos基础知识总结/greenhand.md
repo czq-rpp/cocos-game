@@ -83,3 +83,5 @@
 
 
 ## 编辑器基础
+
+- [官方文档](http://docs.cocos.com/creator/manual/zh/getting-started/basics/editor-overview.html)
