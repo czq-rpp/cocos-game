@@ -1,5 +1,5 @@
 # cocos-game
-cocos游戏引擎学习
+> cocos游戏引擎学习，新手上路
 
 #代码编辑环境配置（推荐使用vscode）
 1、安装 Cocos Creator API 适配插件：开发者 -> VS Code 工作流 -> 安装 VS Code 扩展插件；
@@ -14,6 +14,7 @@ cocos游戏引擎学习
 
 3、设置文件显示和搜索过滤：
 
+```js
 {
     "search.exclude": {
         "**/node_modules": true,
