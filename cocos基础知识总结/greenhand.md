@@ -11,18 +11,13 @@
 
 ---
 
+## 代码编辑环境配置
 
-1、安装 Cocos Creator API 适配插件：开发者 -> VS Code 工作流 -> 安装 VS Code 扩展插件；
+### 安装 Cocos Creator API 适配插件：开发者 -> VS Code 工作流 -> 安装 VS Code 扩展插件；
 
+### 在项目中生成智能提示数据：开发者 -> VS Code 工作流 -> 更新 VS Code 智能提示数据，对于每个不同的项目都需要运行一次这个命令（jsconfig.json，creator.d.ts）。
 
-
-
-2、在项目中生成智能提示数据：开发者 -> VS Code 工作流 -> 更新 VS Code 智能提示数据，对于每个不同的项目都需要运行一次这个命令（jsconfig.json，creator.d.ts）。
-
-
-
-
-3、设置文件显示和搜索过滤：
+### 设置文件显示和搜索过滤：
 
 ```js
 {
