@@ -2,7 +2,7 @@
  * @Author: zaccheus 
  * @Date: 2018-07-06 09:05:47 
  * @Last Modified by: zaccheus
- * @Last Modified time: 2018-07-06 10:04:20
+ * @Last Modified time: 2018-07-06 10:29:11
  */
 
 class BinarySearch {
@@ -26,8 +26,8 @@ class BinarySearch {
       return 1;
     }
 
-    if(centerVal > this.needFindVal) {
-      this.searchScope(centerIndex + 1, toIndex);
+    if(centerVal < this.needFindVal) {
+      return this.searchScope(centerIndex + 1, toIndex);
     }
 
     return this.searchScope(fromIndex, centerIndex - 1);
