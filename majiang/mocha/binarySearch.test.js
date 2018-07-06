@@ -2,7 +2,7 @@
  * @Author: zaccheus 
  * @Date: 2018-07-06 09:47:43 
  * @Last Modified by: zaccheus
- * @Last Modified time: 2018-07-06 10:32:34
+ * @Last Modified time: 2018-07-06 10:35:45
  */
 
 var BinarySearch = require("./binarySearch");
