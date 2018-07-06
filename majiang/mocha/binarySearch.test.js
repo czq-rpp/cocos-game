@@ -2,7 +2,7 @@
  * @Author: zaccheus 
  * @Date: 2018-07-06 09:47:43 
  * @Last Modified by: zaccheus
- * @Last Modified time: 2018-07-06 10:27:33
+ * @Last Modified time: 2018-07-06 10:32:34
  */
 
 var BinarySearch = require("./binarySearch");
@@ -30,17 +30,10 @@ describe('测试二分查找算法', function() {
       Assert.equal(-1, ok);
     });
   });
-  // describe('测试传递数组，且能找到', function() {
-  //   it('必须返回1', function() {
-  //     var binarySearchInstance = new BinarySearch();
-  //     var ok = binarySearchInstance.search([1,45,78,90,100], 78);
-  //     Assert.equal(1, ok);
-  //   });
-  // });
   describe('测试传递数组，且能找到', function() {
     it('必须返回1', function() {
       var binarySearchInstance = new BinarySearch();
-      var ok = binarySearchInstance.search([1,45], 45);
+      var ok = binarySearchInstance.search([1,45,199,299,300,400], 299);
       Assert.equal(1, ok);
     });
   });
