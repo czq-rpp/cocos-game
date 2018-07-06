@@ -3,7 +3,7 @@ var app = express();
 var msgpack = require("msgpack-lite");
 
 app.get('/pack/:json', function (req, res) {
-  var jsonVal = req.param('json');
+  var jsonVal = req.params.json;
   var jsonObject = JSON.parse(jsonVal);
   // encode from JS Object to MessagePack (Buffer)
   var buffer = msgpack.encode(jsonObject);
@@ -12,7 +12,7 @@ app.get('/pack/:json', function (req, res) {
 });
 
 app.get('/unpack/:UPjson', function (req, res) {
-  var unPackJsonVal = req.param('UPjson');
+  var unPackJsonVal = req.params.UPjson;
   var buffer = new Buffer(unPackJsonVal,'hex')
   // decode from MessagePack (Buffer) to JS Object
   var data = msgpack.decode(buffer);
