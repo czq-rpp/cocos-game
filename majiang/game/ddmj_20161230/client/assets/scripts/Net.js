@@ -23,7 +23,6 @@ var Global = cc.Class({
                 }
                 fn(data);
             };
-            
             this.handlers[event] = handler; 
             if(this.sio){
                 console.log("register:function " + event);
