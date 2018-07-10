@@ -71,7 +71,7 @@ cc.Class({
             }
         };
         cc.vv.wc.show("正在登录游戏");
-        cc.vv.http.sendRequest("/login",{account:this.account,sign:this.sign},onLogin);
+        cc.vv.http.sendRequest("/login",{account:this.account,sign:this.sign},onLogin,"http://192.168.21.75:9001");
     },
     
     create:function(name){

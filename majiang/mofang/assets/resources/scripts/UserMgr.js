@@ -2,7 +2,7 @@
  * @Author: zaccheus 
  * @Date: 2018-07-10 14:56:09 
  * @Last Modified by: zaccheus
- * @Last Modified time: 2018-07-10 16:02:02
+ * @Last Modified time: 2018-07-10 17:13:16
  */
 
 cc.Class({
@@ -51,6 +51,7 @@ cc.Class({
 
     login:function(){
         var self = this;
+        // 执行login接口返回json后的函数
         var onLogin = function(ret){
             if(ret.errcode !== 0){
                 console.log(ret.errmsg);
@@ -79,7 +80,7 @@ cc.Class({
         // 显示登录弹窗
         cc.vv.wc.show("正在登录游戏");
         // 请求后端接口login
-        cc.vv.http.sendRequest("/login",{account:this.account,sign:this.sign},onLogin);
+        cc.vv.http.sendRequest("/login",{account:this.account,sign:this.sign},onLogin,"http://192.168.21.75:9001");
     },
     
 });

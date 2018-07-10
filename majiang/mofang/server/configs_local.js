@@ -2,12 +2,14 @@
  * @Author: zaccheus 
  * @Date: 2018-07-09 17:09:07 
  * @Last Modified by: zaccheus
- * @Last Modified time: 2018-07-10 11:19:03
+ * @Last Modified time: 2018-07-10 16:12:37
  */
 var HALL_IP = "192.168.21.75";
 var HALL_CLIENT_PORT = 9001;
+var HALL_ROOM_PORT = 9002;
 
 var ACCOUNT_PRI_KEY = "^&*#$%()@";
+var ROOM_PRI_KEY = "~!@#$(*&^%$&";
 
 var LOCAL_IP = 'localhost';
 
@@ -35,5 +37,17 @@ exports.account_server = function(){
 		DEALDER_API_PORT:12581,
 		VERSION:'20161227',
 		APP_WEB:'http://fir.im/2f17',
+	};
+};
+
+//大厅服配置
+exports.hall_server = function(){
+	return {
+		HALL_IP:HALL_IP,
+		CLEINT_PORT:HALL_CLIENT_PORT,
+		FOR_ROOM_IP:LOCAL_IP,
+		ROOM_PORT:HALL_ROOM_PORT,
+		ACCOUNT_PRI_KEY:ACCOUNT_PRI_KEY,
+		ROOM_PRI_KEY:ROOM_PRI_KEY
 	};
 };

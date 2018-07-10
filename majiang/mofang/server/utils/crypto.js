@@ -1,3 +1,10 @@
+/*
+ * @Author: zaccheus 
+ * @Date: 2018-07-10 16:07:08 
+ * @Last Modified by:   zaccheus 
+ * @Last Modified time: 2018-07-10 16:07:08 
+ */
+
 var crypto = require('crypto');
 
 exports.md5 = function (content) {
