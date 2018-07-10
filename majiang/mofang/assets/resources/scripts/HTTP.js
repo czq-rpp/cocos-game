@@ -2,7 +2,7 @@
  * @Author: zaccheus 
  * @Date: 2018-07-09 11:13:22 
  * @Last Modified by: zaccheus
- * @Last Modified time: 2018-07-10 11:02:50
+ * @Last Modified time: 2018-07-10 13:39:03
  */
 
 var URL = "http://192.168.21.75:9000";
@@ -12,6 +12,7 @@ var HTTP = cc.Class({
     extends: cc.Component,
     // 静态变量和静态方法
     statics: {
+        master_url:URL,
         url: URL,
         sendRequest(path, data, handler, extraUrl) {
             // 1、获取cocos中封装的ajax请求方法

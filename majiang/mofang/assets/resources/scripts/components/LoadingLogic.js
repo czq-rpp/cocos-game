@@ -2,7 +2,7 @@
  * @Author: zaccheus 
  * @Date: 2018-07-09 09:39:39 
  * @Last Modified by: zaccheus
- * @Last Modified time: 2018-07-10 11:21:49
+ * @Last Modified time: 2018-07-10 14:55:23
  */
 
 cc.Class({
@@ -40,6 +40,9 @@ cc.Class({
         //Cocos 引擎的主要命名空间，引擎代码中所有的类，函数，属性和常量都在这个命名空间中定义。    
         //在cc这个规定的命名空间中定义一个空对象
         cc.vv = {};
+        // 引用用户模块化脚本
+        var UserMgr = require("UserMgr");
+        cc.vv.userMgr = new UserMgr();
         //引进HTTP对象，在这个场景脚本中用到的是其封装的sendRequest方法，是原生ajax请求会把后端返回的json字符串解析成json传递过来
         cc.vv.http = require("HTTP");
         cc.vv.net = require("Net");
@@ -50,7 +53,7 @@ cc.Class({
         //
         var VoiceMgr = require("VoiceMgr");
         cc.vv.voiceMgr = new VoiceMgr();
-        //
+        // 音频初始化，详见AudioMgr.js
         var AudioMgr = require("AudioMgr");
         cc.vv.audioMgr = new AudioMgr();
         cc.vv.audioMgr.init();
