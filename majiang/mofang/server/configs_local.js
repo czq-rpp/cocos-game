@@ -2,7 +2,7 @@
  * @Author: zaccheus 
  * @Date: 2018-07-09 17:09:07 
  * @Last Modified by: zaccheus
- * @Last Modified time: 2018-07-09 17:09:47
+ * @Last Modified time: 2018-07-10 11:19:03
  */
 var HALL_IP = "192.168.21.75";
 var HALL_CLIENT_PORT = 9001;
@@ -11,6 +11,7 @@ var ACCOUNT_PRI_KEY = "^&*#$%()@";
 
 var LOCAL_IP = 'localhost';
 
+// mysql数据库配置信息
 exports.mysql = function(){
 	return {
 		HOST:'127.0.0.1',
