@@ -12,7 +12,7 @@ exports.mysql = function(){
 		HOST:'127.0.0.1',
 		USER:'root',
 		PSWD:'root',
-		DB:'dd_mj_2',
+		DB:'majiang',
 		PORT:3306,
 	}
 }
