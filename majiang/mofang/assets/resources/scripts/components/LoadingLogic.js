@@ -2,7 +2,7 @@
  * @Author: zaccheus 
  * @Date: 2018-07-09 09:39:39 
  * @Last Modified by: zaccheus
- * @Last Modified time: 2018-07-10 10:17:27
+ * @Last Modified time: 2018-07-10 10:54:38
  */
 
 cc.Class({
@@ -40,7 +40,7 @@ cc.Class({
         //Cocos 引擎的主要命名空间，引擎代码中所有的类，函数，属性和常量都在这个命名空间中定义。    
         //在cc这个规定的命名空间中定义一个空对象
         cc.vv = {};
-        //
+        //引进HTTP对象，在这个场景脚本中用到的是其封装的sendRequest方法，是原生ajax请求会把后端返回的json字符串解析成json传递过来
         cc.vv.http = require("HTTP");
         cc.vv.net = require("Net");
         //
@@ -54,7 +54,7 @@ cc.Class({
         var AudioMgr = require("AudioMgr");
         cc.vv.audioMgr = new AudioMgr();
         cc.vv.audioMgr.init();
-        //params
+        //params--把地址栏？的参数封装到这个对象中
         cc.args = this.urlParse();
     },
 
@@ -81,6 +81,7 @@ cc.Class({
     },
 
     start() {
+        // 加载完load之后在大部分平台上渐隐公司logo图片及调用checkVersion方法
         var self = this;
         var SHOW_TIME = 3000;
         var FADE_TIME = 500;
@@ -111,6 +112,12 @@ cc.Class({
     },
 
     checkVersion() {
+        // 连接后端接口--get_serverinfo；
+        // 1、如果连接不上，请求终止————xhr.abort()改变状态值————连接失败，即将重试；
+        // 2、5秒后继续请求————fnRequest，改变状态值————正在连接服务器;
+        // 3、成功————complete设为true，即完成不再请求，把返回的json值ret带给onGetVersion方法
+        // 4、主要是检查版本，把ret复制给vv中的SI
+        // 5、执行startPreloading，即开始加载资源，进login场景
         var self = this;
         var xhr = null;
         var complete = false;
@@ -155,6 +162,7 @@ cc.Class({
     },
 
     startPreloading() {
+        // 这里主要是对加载textures资源的封装，用到的方法是cc.loader.loadResDir
         this._stateStr = "正在加载资源，请稍候";
         this._isLoading = true;
         var self = this;
@@ -176,13 +184,14 @@ cc.Class({
     },
 
     onLoadComplete() {
+        // cc.loader.loadResDir加载完成后的回调
         this._isLoading = false;
         this._stateStr = "准备登陆";
-        // cc.director.loadScene("login");
-        cc.loader.onComplete = null;
+        cc.director.loadScene("login");
     },
 
     update(dt) {
+        // 每一帧都会运行的函数，这里主要涉及状态值：_stateStr和资源加载进度值_progress
         if (this._stateStr.length == 0) {
             return;
         }
@@ -191,6 +200,7 @@ cc.Class({
             this.tipLabel.string += Math.floor(this._progress * 100) + "%";   
         }
         else{
+            // 这里比较有趣，主要是表示进度的随机.或..或...
             var t = Math.floor(Date.now() / 1000) % 4;
             for(var i = 0; i < t; ++ i){
                 this.tipLabel.string += '.';
