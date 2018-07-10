@@ -173,7 +173,7 @@
     },
     "_enabled": true,
     "_spriteFrame": {
-      "__uuid__": "e0edcf6a-084b-48d8-a569-d38406424d15"
+      "__uuid__": "e9ecb267-78f5-49b7-be14-60cc9116abe1"
     },
     "_type": 0,
     "_sizeMode": 1,
@@ -325,7 +325,7 @@
     },
     "_enabled": true,
     "_spriteFrame": {
-      "__uuid__": "806e6054-57e6-435d-95fc-d29b4b3a85c5"
+      "__uuid__": "b7887bd5-43d4-4dcd-acf8-f21841609c37"
     },
     "_type": 0,
     "_sizeMode": 1,
@@ -369,6 +369,9 @@
     "tipLabel": {
       "__id__": 6
     },
-    "_stateStr": ""
+    "_stateStr": "",
+    "_progress": 0,
+    "_splash": null,
+    "_isLoading": false
   }
 ]
