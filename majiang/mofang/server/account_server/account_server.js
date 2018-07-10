@@ -2,8 +2,11 @@
  * @Author: zaccheus 
  * @Date: 2018-07-09 17:10:52 
  * @Last Modified by: zaccheus
- * @Last Modified time: 2018-07-10 11:17:04
+ * @Last Modified time: 2018-07-10 15:22:26
  */
+
+var crypto = require('../utils/crypto');
+
 var express = require('express');
 var app = express();
 
@@ -45,6 +48,21 @@ app.get('/get_serverinfo',function(req,res){
 		version:config.VERSION,
 		hall:hallAddr,
 		appweb:config.APP_WEB,
+	}
+	send(res,ret);
+});
+
+// guest接口，主要返回errcode、errmsg、account--拼接字符串、halladdr、sign--加密的
+app.get('/guest',function(req,res){
+	var account = "guest_" + req.query.account;
+	console.log(req.params)
+	var sign = crypto.md5(account + req.ip + config.ACCOUNT_PRI_KEY);
+	var ret = {
+		errcode:0,
+		errmsg:"ok",
+		account:account,
+		halladdr:hallAddr,
+		sign:sign
 	}
 	send(res,ret);
 });
