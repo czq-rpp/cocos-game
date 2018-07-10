@@ -2,7 +2,7 @@
  * @Author: zaccheus 
  * @Date: 2018-07-09 09:39:39 
  * @Last Modified by: zaccheus
- * @Last Modified time: 2018-07-10 10:54:38
+ * @Last Modified time: 2018-07-10 11:21:49
  */
 
 cc.Class({
@@ -128,7 +128,8 @@ cc.Class({
             } else {
                 cc.vv.SI = ret;
                 if (ret.version != cc.VERSION) {
-                    cc.find("Canvas/alert").active = true;
+                    // cc.find("Canvas/alert").active = true;
+                    console.log("如果有原生版本，这里会提示升级原生版本")
                 } else {
                     self.startPreloading();
                 }
