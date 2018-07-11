@@ -2,7 +2,7 @@
  * @Author: zaccheus 
  * @Date: 2018-07-10 16:09:23 
  * @Last Modified by: zaccheus
- * @Last Modified time: 2018-07-10 17:21:13
+ * @Last Modified time: 2018-07-11 15:49:21
  */
 
 var crypto = require('../utils/crypto');
@@ -19,6 +19,7 @@ function check_account(req,res){
 	var account = req.query.account;
 	var sign = req.query.sign;
 	if(account == null || sign == null){
+		// 这个地方用到了封装的http的send方法，详见http.js（主要目的就是res.end一个带着你想带的一些字段的json字符串）
 		http.send(res,1,"unknown error");
 		return false;
 	}
@@ -51,6 +52,9 @@ app.all('*', function(req, res, next) {
 
 // login接口主要：
 app.get('/login',function(req,res){
+	// 第一步运行上面封装的check_account函数
+	// 两种情况：1、没有account和sign参数返回false，并且已经在上面的函数中处理并返回给前端错误了，这里直接return
+	// 2、有account和sign参数返回true，则走不进这里的逻辑，去下一个脚本
 	if(!check_account(req,res)){
 		return;
 	}
@@ -63,25 +67,26 @@ app.get('/login',function(req,res){
   
   // 取出请求参数account
   var account = req.query.account;
-  // 用封装的数据库方法get_user_data
+  // 用封装的数据库方法get_user_data，前往db.js
 	db.get_user_data(account,function(data){
-		// if(data == null){
-		// 	http.send(res,0,"ok");
-		// 	return;
-		// }
+		// 查无此人，并返回字段给前端
+		if(data == null){
+			http.send(res,0,"ok");
+			return;
+		}
 
-		// var ret = {
-		// 	account:data.account,
-		// 	userid:data.userid,
-		// 	name:data.name,
-		// 	lv:data.lv,
-		// 	exp:data.exp,
-		// 	coins:data.coins,
-		// 	gems:data.gems,
-		// 	ip:ip,
-		// 	sex:data.sex,
-		// };
-
+		var ret = {
+			account:data.account,
+			userid:data.userid,
+			name:data.name,
+			lv:data.lv,
+			exp:data.exp,
+			coins:data.coins,
+			gems:data.gems,
+			ip:ip,
+			sex:data.sex,
+		};
+		http.send(res,0,"ok",ret);// 暂用
 		// db.get_room_id_of_user(data.userid,function(roomId){
 		// 	//如果用户处于房间中，则需要对其房间进行检查。 如果房间还在，则通知用户进入
 		// 	if(roomId != null){
@@ -101,5 +106,35 @@ app.get('/login',function(req,res){
 		// 		http.send(res,0,"ok",ret);
 		// 	}
 		// });
+	});
+});
+
+app.get('/create_user',function(req,res){
+	if(!check_account(req,res)){
+		return;
+	}
+	var account = req.query.account;
+	var name = req.query.name;
+	var coins = 1000;
+	var gems = 21;
+	console.log(name);
+
+	db.is_user_exist(account,function(ret){
+		if(!ret){
+			// 去db库中创造游戏角色，插入数据库！！！
+			db.create_user(account,name,coins,gems,0,null,function(ret){
+				if (ret == null) {
+					http.send(res,2,"system error.");
+				}
+				else{
+					// 插入成功！
+					http.send(res,0,"ok");					
+				}
+			});
+		}
+		else{
+			// true的情况，返回给前端账户已存在，这种情况基本不存在，因为前面的login已经判断过！！！
+			http.send(res,1,"account have already exist.");
+		}
 	});
 });

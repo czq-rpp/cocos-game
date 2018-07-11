@@ -2,7 +2,7 @@
  * @Author: zaccheus 
  * @Date: 2018-07-10 14:56:09 
  * @Last Modified by: zaccheus
- * @Last Modified time: 2018-07-10 17:13:16
+ * @Last Modified time: 2018-07-11 15:42:31
  */
 
 cc.Class({
@@ -57,6 +57,7 @@ cc.Class({
                 console.log(ret.errmsg);
             }
             else{
+                // 如果返回字段中没有userid，跳转到createrole场景
                 if(!ret.userid){
                     //jump to register user info.
                     cc.director.loadScene("createrole");
@@ -83,4 +84,24 @@ cc.Class({
         cc.vv.http.sendRequest("/login",{account:this.account,sign:this.sign},onLogin,"http://192.168.21.75:9001");
     },
     
+    // 创建角色，account和sign还是之前的，增加了游戏名字name
+    create:function(name){
+        var self = this;
+        var onCreate = function(ret){
+            if(ret.errcode !== 0){
+                console.log(ret.errmsg);
+            }
+            else{
+                // 数据库插入数据成功后登录！
+                self.login();
+            }
+        };
+        
+        var data = {
+            account:this.account,
+            sign:this.sign,
+            name:name
+        };
+        cc.vv.http.sendRequest("/create_user",data,onCreate,"http://192.168.21.75:9001");    
+    },
 });
