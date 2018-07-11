@@ -2,7 +2,7 @@
  * @Author: zaccheus 
  * @Date: 2018-07-10 16:09:23 
  * @Last Modified by: zaccheus
- * @Last Modified time: 2018-07-11 15:49:21
+ * @Last Modified time: 2018-07-11 15:56:22
  */
 
 var crypto = require('../utils/crypto');
@@ -86,7 +86,7 @@ app.get('/login',function(req,res){
 			ip:ip,
 			sex:data.sex,
 		};
-		http.send(res,0,"ok",ret);// 暂用
+		http.send(res,0,"ok",ret);// 查到此人的信息返回给前端  ————暂用！！！！
 		// db.get_room_id_of_user(data.userid,function(roomId){
 		// 	//如果用户处于房间中，则需要对其房间进行检查。 如果房间还在，则通知用户进入
 		// 	if(roomId != null){

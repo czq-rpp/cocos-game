@@ -2,15 +2,23 @@
  * @Author: zaccheus 
  * @Date: 2018-07-10 14:56:09 
  * @Last Modified by: zaccheus
- * @Last Modified time: 2018-07-11 15:42:31
+ * @Last Modified time: 2018-07-11 17:17:43
  */
 
 cc.Class({
     extends: cc.Component,
 
     properties: {
-        account: null,
-        sign: null
+        account:null,
+	    userId:null,
+		userName:null,
+		lv:0,
+		exp:0,
+		coins:0,
+		gems:0,
+		sign:0,
+        ip:"",
+        sex:0,
     },
 
     // 游客登录
