@@ -2,7 +2,7 @@
  * @Author: zaccheus 
  * @Date: 2018-07-10 14:56:09 
  * @Last Modified by: zaccheus
- * @Last Modified time: 2018-07-11 17:17:43
+ * @Last Modified time: 2018-07-12 09:25:30
  */
 
 cc.Class({
@@ -19,6 +19,8 @@ cc.Class({
 		sign:0,
         ip:"",
         sex:0,
+
+        oldRoomId:null
     },
 
     // 游客登录

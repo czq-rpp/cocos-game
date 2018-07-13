@@ -2,7 +2,7 @@
  * @Author: zaccheus 
  * @Date: 2018-07-09 17:09:21 
  * @Last Modified by: zaccheus
- * @Last Modified time: 2018-07-11 15:00:40
+ * @Last Modified time: 2018-07-12 15:07:12
  */
 
 var mysql = require("mysql");
@@ -101,7 +101,7 @@ exports.is_user_exist = function(account,callback){
   });  
 }
 
-
+// 创建角色
 exports.create_user = function(account,name,coins,gems,sex,headimg,callback){// 参数分别是：账户、昵称、用户金币、用户宝石、用户性别、用户头像、回调函数
 	callback = callback == null? nop:callback;
 	if(account == null || name == null || coins==null || gems==null){// 账户、昵称、用户金币、用户宝石只要有一个为空，返回callback(false)
@@ -124,4 +124,114 @@ exports.create_user = function(account,name,coins,gems,sex,headimg,callback){// 
 			}
 			callback(true);
 	});
+};
+
+// 根据userId查询数据库中的roomId
+exports.get_room_id_of_user = function(userId,callback){
+  callback = callback == null? nop:callback;
+  var sql = 'SELECT roomid FROM t_users WHERE userid = "' + userId + '"';
+  query(sql, function(err, rows, fields) {
+      if(err){
+          callback(null);
+          throw err;
+      }
+      else{
+          if(rows.length > 0){
+              callback(rows[0].roomid);
+          }
+          else{
+              callback(null);
+          }
+      }
+  });
+};
+
+// 检查t_room数据表中是否有这个roomId
+exports.is_room_exist = function(roomId,callback){
+  callback = callback == null? nop:callback;
+  var sql = 'SELECT * FROM t_rooms WHERE id = "' + roomId + '"';
+  query(sql, function(err, rows, fields) {
+      if(err){
+          callback(false);
+          throw err;
+      }
+      else{
+          callback(rows.length > 0);
+      }
+  });
+};
+
+// 删除
+exports.set_room_id_of_user = function(userId,roomId,callback){
+  callback = callback == null? nop:callback;
+  if(roomId != null){
+      roomId = '"' + roomId + '"';
+  }
+  var sql = 'UPDATE t_users SET roomid = '+ roomId + ' WHERE userid = "' + userId + '"';
+  console.log(sql);
+  query(sql, function(err, rows, fields) {
+      if(err){
+          console.log(err);
+          callback(false);
+          throw err;
+      }
+      else{
+          callback(rows.length > 0);
+      }
+  });
+};
+
+// 获取用户的gems
+exports.get_gems = function(account,callback){
+  callback = callback == null? nop:callback;
+  if(account == null){
+      callback(null);
+      return;
+  }
+
+  var sql = 'SELECT gems FROM t_users WHERE account = "' + account + '"';
+  query(sql, function(err, rows, fields) {
+      if (err) {
+          callback(null);
+          throw err;
+      }
+
+      if(rows.length == 0){
+          callback(null);
+          return;
+      }
+
+      callback(rows[0]);
+  });
+}; 
+
+// 根据type在数据表t_message中查询msg的值并返回
+exports.get_message = function(type,version,callback){
+    callback = callback == null? nop:callback;
+    
+    var sql = 'SELECT * FROM t_message WHERE type = "'+ type + '"';
+    
+    if(version == "null"){
+        version = null;
+    }
+    
+    if(version){
+        version = '"' + version + '"';
+        sql += ' AND version != ' + version;   
+    }
+     
+    query(sql, function(err, rows, fields) {
+        if(err){
+            callback(false);
+            throw err;
+        }
+        else{
+            if(rows.length > 0){
+                callback(rows[0]);    
+            }
+            else{
+                callback(null);
+            }
+        }
+    });
 };

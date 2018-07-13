@@ -2,7 +2,7 @@
  * @Author: zaccheus 
  * @Date: 2018-07-09 11:13:22 
  * @Last Modified by: zaccheus
- * @Last Modified time: 2018-07-11 15:50:10
+ * @Last Modified time: 2018-07-12 08:48:56
  */
 
 var URL = "http://192.168.21.75:9000";
@@ -55,6 +55,8 @@ var HTTP = cc.Class({
             };
             // 5、发送
             xhr.send();
+            // 返回xhr对象
+            return xhr;
         }
     }
 });

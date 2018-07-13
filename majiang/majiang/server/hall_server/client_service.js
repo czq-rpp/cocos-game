@@ -2,7 +2,7 @@
  * @Author: zaccheus 
  * @Date: 2018-07-10 16:09:23 
  * @Last Modified by: zaccheus
- * @Last Modified time: 2018-07-11 15:56:22
+ * @Last Modified time: 2018-07-12 15:07:36
  */
 
 var crypto = require('../utils/crypto');
@@ -86,26 +86,26 @@ app.get('/login',function(req,res){
 			ip:ip,
 			sex:data.sex,
 		};
-		http.send(res,0,"ok",ret);// 查到此人的信息返回给前端  ————暂用！！！！
-		// db.get_room_id_of_user(data.userid,function(roomId){
-		// 	//如果用户处于房间中，则需要对其房间进行检查。 如果房间还在，则通知用户进入
-		// 	if(roomId != null){
-		// 		//检查房间是否存在于数据库中
-		// 		db.is_room_exist(roomId,function (retval){
-		// 			if(retval){
-		// 				ret.roomid = roomId;
-		// 			}
-		// 			else{
-		// 				//如果房间不在了，表示信息不同步，清除掉用户记录
-		// 				db.set_room_id_of_user(data.userid,null);
-		// 			}
-		// 			http.send(res,0,"ok",ret);
-		// 		});
-		// 	}
-		// 	else {
-		// 		http.send(res,0,"ok",ret);
-		// 	}
-		// });
+		// http.send(res,0,"ok",ret);// 查到此人的信息返回给前端  ————暂用！！！！
+		db.get_room_id_of_user(data.userid,function(roomId){
+			//如果用户处于房间中，则需要对其房间进行检查。 如果房间还在，则通知用户进入
+			if(roomId != null){
+				//检查房间是否存在于数据库中
+				db.is_room_exist(roomId,function (retval){
+					if(retval){
+						ret.roomid = roomId;
+					}
+					else{
+						//如果房间不在了，表示信息不同步，清除掉用户记录
+						db.set_room_id_of_user(data.userid,null);
+					}
+					http.send(res,0,"ok",ret);
+				});
+			}
+			else {
+				http.send(res,0,"ok",ret);
+			}
+		});
 	});
 });
 
@@ -135,6 +135,45 @@ app.get('/create_user',function(req,res){
 		else{
 			// true的情况，返回给前端账户已存在，这种情况基本不存在，因为前面的login已经判断过！！！
 			http.send(res,1,"account have already exist.");
+		}
+	});
+});
+
+// 返回前端gems
+app.get('/get_user_status',function(req,res){
+	if(!check_account(req,res)){
+		return;
+	}
+	var account = req.query.account;
+	db.get_gems(account,function(data){
+		if(data != null){
+			http.send(res,0,"ok",{gems:data.gems});	
+		}
+		else{
+			http.send(res,1,"get gems failed.");
+		}
+	});
+});
+
+// 返回前端msg和version
+app.get('/get_message',function(req,res){
+	if(!check_account(req,res)){
+		return;
+	}
+	var type = req.query.type;
+	
+	if(type == null){
+		http.send(res,-1,"parameters don't match api requirements.");
+		return;
+	}
+	
+	var version = req.query.version;
+	db.get_message(type,version,function(data){
+		if(data != null){
+			http.send(res,0,"ok",{msg:data.msg,version:data.version});	
+		}
+		else{
+			http.send(res,1,"get message failed.");
 		}
 	});
 });

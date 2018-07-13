@@ -2,7 +2,7 @@
  * @Author: zaccheus 
  * @Date: 2018-07-09 09:39:39 
  * @Last Modified by: zaccheus
- * @Last Modified time: 2018-07-10 14:59:24
+ * @Last Modified time: 2018-07-12 09:57:41
  */
 
 cc.Class({
@@ -57,6 +57,9 @@ cc.Class({
         var AudioMgr = require("AudioMgr");
         cc.vv.audioMgr = new AudioMgr();
         cc.vv.audioMgr.init();
+        // 增加事件的工具函数
+        var Utils = require("Utils");
+        cc.vv.utils = new Utils();
         //params--把地址栏？的参数封装到这个对象中
         cc.args = this.urlParse();
     },

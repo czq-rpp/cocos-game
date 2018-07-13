@@ -2,7 +2,7 @@
  * @Author: zaccheus 
  * @Date: 2018-07-09 10:32:23 
  * @Last Modified by: zaccheus
- * @Last Modified time: 2018-07-10 14:16:50
+ * @Last Modified time: 2018-07-12 13:57:45
  */
 
 cc.Class({
@@ -11,6 +11,7 @@ cc.Class({
     properties: {
         bgmVolume:1.0,
         bgmAudioID:-1,
+        sfxVolume:1.0
     },
 
     // onLoad () {},
@@ -60,6 +61,37 @@ cc.Class({
         // 播放api，第一个参数：filePath、第二个参数：loop；第三个参数音量大小
         this.bgmAudioID = cc.audioEngine.play(audioUrl,true,this.bgmVolume);
         // 这时候this.bgmAudioID === 0
+    },
+
+    // 设置音效大小
+    setSFXVolume:function(v){
+        // 如果设置的值不等于1，在本地存储中存下这个值，并设置成这个值
+        if(this.sfxVolume != v){
+            cc.sys.localStorage.setItem("sfxVolume",v);
+            this.sfxVolume = v;
+        }
+    },
+    
+    // 设置音乐大小
+    setBGMVolume:function(v,force){
+        // console.log(this.bgmAudioID) 等于0；bgmVolume = 1
+        if(this.bgmAudioID >= 0){
+            if(v > 0){
+                cc.audioEngine.resume(this.bgmAudioID);
+            }
+            else{
+                cc.audioEngine.pause(this.bgmAudioID);
+            }
+            //cc.audioEngine.setVolume(this.bgmAudioID,this.bgmVolume);
+        }
+        // 存储bgmVolume的值进localStorage本地存储中
+        if(this.bgmVolume != v || force){
+            // 存储
+            cc.sys.localStorage.setItem("bgmVolume",v);
+            this.bgmVolume = v;
+            // 设置音量（0.0~1.0）
+            cc.audioEngine.setVolume(this.bgmAudioID,v);
+        }
     },
     // update (dt) {},
 });
