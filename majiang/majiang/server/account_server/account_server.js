@@ -2,7 +2,7 @@
  * @Author: zaccheus 
  * @Date: 2018-07-09 17:10:52 
  * @Last Modified by: zaccheus
- * @Last Modified time: 2018-07-10 17:05:00
+ * @Last Modified time: 2018-07-13 15:54:45
  */
 
 var crypto = require('../utils/crypto');
@@ -36,11 +36,6 @@ app.all('*', function(req, res, next) {
   res.header("Content-Type", "application/json;charset=utf-8");
   next();
 });
-
-//测试
-// app.get('/test',function(req,res){
-// 	res.send('test')
-// });
 
 // get_serverinfo接口主要是返回游戏版本号、hall、appweb
 app.get('/get_serverinfo',function(req,res){

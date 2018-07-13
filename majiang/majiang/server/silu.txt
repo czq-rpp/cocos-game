@@ -1,0 +1,63 @@
+注明：随时删
+
+一、账号服务器：
+{
+  CLIENT_PORT:                                   9000,
+	HALL_IP:HALL_IP,                               192.168.21.75
+	HALL_CLIENT_PORT:HALL_CLIENT_PORT,             9001
+	ACCOUNT_PRI_KEY:ACCOUNT_PRI_KEY,               ^&*#$%()@
+		
+  DEALDER_API_IP:LOCAL_IP,                       localhost
+  DEALDER_API_PORT:12581,                        12581
+  VERSION:'20161227',                            20161227
+  APP_WEB:'http://fir.im/2f17',                  http://fir.im/2f17
+}
+
+主要就是账号服务器的ip地址、端口号、版本号  ————  192.168.21.75：9000
+
+dealer api服务器监听12581端口
+
+
+二、大厅服务器：
+{
+  	HALL_IP:HALL_IP,                             192.168.21.75
+		CLEINT_PORT:HALL_CLIENT_PORT,                9001
+		FOR_ROOM_IP:LOCAL_IP,                        localhost
+		ROOM_PORT:HALL_ROOM_PORT,                    9002
+		ACCOUNT_PRI_KEY:ACCOUNT_PRI_KEY,             ^&*#$%()@
+		ROOM_PRI_KEY:ROOM_PRI_KEY                    ~!@#$(*&^%$&
+}
+
+client_service监听9001
+room_service监听9002
+
+
+三、麻将游戏服务器：
+{
+  SERVER_ID:"001",
+		
+  //暴露给大厅服的HTTP端口号
+  HTTP_PORT:9003,                                  9003
+  //HTTP TICK的间隔时间，用于向大厅服汇报情况
+  HTTP_TICK_TIME:5000,                            5000
+  //大厅服IP
+  HALL_IP:LOCAL_IP,                               localhost
+  FOR_HALL_IP:LOCAL_IP,                           localhost
+  //大厅服端口
+  HALL_PORT:HALL_ROOM_PORT,                      9002
+  //与大厅服协商好的通信加密KEY
+  ROOM_PRI_KEY:ROOM_PRI_KEY,                      ~!@#$(*&^%$&
+  
+  //暴露给客户端的接口
+  CLIENT_IP:HALL_IP,                             192.168.21.75
+  CLIENT_PORT:10000,
+}
+
+http_service监听9003
+
+
+
+四、作用：
+
+1、账号服务器9000：暂时只是返回json字符串
+2、大厅服务器9001：

@@ -2,12 +2,13 @@
  * @Author: zaccheus 
  * @Date: 2018-07-10 16:09:23 
  * @Last Modified by: zaccheus
- * @Last Modified time: 2018-07-12 15:07:36
+ * @Last Modified time: 2018-07-13 13:58:31
  */
 
 var crypto = require('../utils/crypto');
 var db = require('../utils/db');
 var http = require('../utils/http');
+var room_service = require("./room_service");
 
 var express = require('express');
 var app = express();
@@ -175,5 +176,63 @@ app.get('/get_message',function(req,res){
 		else{
 			http.send(res,1,"get message failed.");
 		}
+	});
+});
+
+
+app.get('/create_private_room',function(req,res){
+	//验证参数合法性
+	var data = req.query;
+	//验证玩家身份
+	if(!check_account(req,res)){
+		return;
+	}
+
+	var account = data.account;
+
+	data.account = null;
+	data.sign = null;
+	var conf = data.conf;
+	// 先根据account查询玩家的userId和name
+	db.get_user_data(account,function(data){
+		if(data == null){
+			http.send(res,1,"system error");
+			return;
+		}
+		var userId = data.userid;
+		var name = data.name;
+		//验证玩家状态，根据userId查询roomId
+		db.get_room_id_of_user(userId,function(roomId){
+			// 有roomId
+			if(roomId != null){
+				http.send(res,-1,"user is playing in room now.");
+				return;
+			}
+			//没有roomId，创建房间room_service.js
+			room_service.createRoom(account,userId,conf,function(err,roomId){
+				if(err == 0 && roomId != null){
+					room_service.enterRoom(userId,name,roomId,function(errcode,enterInfo){
+						if(enterInfo){
+							var ret = {
+								roomid:roomId,
+								ip:enterInfo.ip,
+								port:enterInfo.port,
+								token:enterInfo.token,
+								time:Date.now()
+							};
+							ret.sign = crypto.md5(ret.roomid + ret.token + ret.time + config.ROOM_PRI_KEY);
+							http.send(res,0,"ok",ret);
+						}
+						else{
+							http.send(res,errcode,"room doesn't exist.");
+						}
+					});
+				}
+				else{
+					console.log('11')
+					http.send(res,err,"create failed.");					
+				}
+			});
+		});
 	});
 });

@@ -2,7 +2,7 @@
  * @Author: zaccheus 
  * @Date: 2018-07-09 17:09:15 
  * @Last Modified by: zaccheus
- * @Last Modified time: 2018-07-10 11:13:31
+ * @Last Modified time: 2018-07-13 15:21:47
  */
 
 // 后端入口文件
@@ -21,5 +21,5 @@ var as = require('./account_server');
 // account_server后端服务初始化，详见account_server.js文件
 as.start(config);
 
-// var dapi = require('./dealer_api');
-// dapi.start(config);
+var dapi = require('./dealer_api');
+dapi.start(config);

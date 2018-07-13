@@ -2,8 +2,11 @@
  * @Author: zaccheus 
  * @Date: 2018-07-10 16:26:54 
  * @Last Modified by: zaccheus
- * @Last Modified time: 2018-07-11 15:26:34
+ * @Last Modified time: 2018-07-13 15:09:48
  */
+
+var http = require('http');
+var qs = require('querystring');
 
 // 给字符串类增加一个原型方法
 String.prototype.format = function(args) {
@@ -43,4 +46,53 @@ exports.send = function(res,errcode,errmsg,data){
 	data.errmsg = errmsg;
 	var jsonstr = JSON.stringify(data);
 	res.send(jsonstr);
+};
+
+
+exports.get = function (host,port,path,data,callback,safe) {
+	/*
+	localhost、
+	9002、
+	/register_gs、
+	{
+		id:config.SERVER_ID,  ———— 001
+		clientip:config.CLIENT_IP, ————— localhost
+		clientport:config.CLIENT_PORT, —————— 10000
+		httpPort:config.HTTP_PORT, —————— 9003
+		load:roomMgr.getTotalRooms(), ———————— 0
+	}、
+	callback、
+	null
+	*/
+	var content = qs.stringify(data);  
+	// id=001&clientip=192.168.21.75&clientport=10000&httpPort=9003&load=0
+	var options = {  
+		hostname: host,  
+		path: path + '?' + content,  
+		method:'GET'
+	};
+	if(port){
+		options.port = port;
+	}
+	var proto = http;
+	if(safe){
+		proto = https;
+	}
+	var req = proto.request(options, function (res) {  
+		//console.log('STATUS: ' + res.statusCode);  
+		//console.log('HEADERS: ' + JSON.stringify(res.headers));  
+		res.setEncoding('utf8');  
+		res.on('data', function (chunk) {  
+			//console.log('BODY: ' + chunk);
+			var json = JSON.parse(chunk);
+			callback(true,json);
+		});  
+	});
+	  
+	req.on('error', function (e) {  
+		console.log('problem with request: ' + e.message);
+		callback(false,e);
+	});  
+	  
+	req.end(); 
 };
