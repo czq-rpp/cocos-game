@@ -64,4 +64,5 @@ http_service监听9003
 
 五、重点！！！！
 游戏服务器http_service开启的过程：
-1、监听
+1、监听9003端口
+2、隔一秒向room-service————9002端口的/register_gs路径还带有一些参数（游戏服的信息）请求一次

@@ -2,7 +2,7 @@
  * @Author: zaccheus 
  * @Date: 2018-07-10 16:26:54 
  * @Last Modified by: zaccheus
- * @Last Modified time: 2018-07-13 16:17:49
+ * @Last Modified time: 2018-07-13 17:40:36
  */
 
 var http = require('http');
@@ -74,6 +74,11 @@ exports.get = function (host,port,path,data,callback,safe) {
 	if(port){
 		options.port = port;
 	}
+	// options
+	// { hostname: 'localhost',
+  // path: '/register_gs?id=001&clientip=192.168.21.75&clientport=10000&httpPort=9003&load=0',
+  // method: 'GET',
+  // port: 9002 }
 	var proto = http;
 	if(safe){
 		proto = https;
@@ -83,7 +88,7 @@ exports.get = function (host,port,path,data,callback,safe) {
 		//console.log('HEADERS: ' + JSON.stringify(res.headers));  
 		res.setEncoding('utf8');  
 		res.on('data', function (chunk) {  
-			//console.log('BODY: ' + chunk);
+			// console.log('BODY: ' + chunk);
 			var json = JSON.parse(chunk);
 			callback(true,json);
 		});  

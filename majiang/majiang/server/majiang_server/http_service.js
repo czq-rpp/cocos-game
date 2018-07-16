@@ -2,7 +2,7 @@
  * @Author: zaccheus 
  * @Date: 2018-07-13 14:14:57 
  * @Last Modified by: zaccheus
- * @Last Modified time: 2018-07-13 14:24:01
+ * @Last Modified time: 2018-07-13 17:04:42
  */
 
 var express = require('express');
@@ -11,6 +11,7 @@ var http = require('../utils/http');
 var gameServerInfo = null;
 var lastTickTime = 0;
 var config = null;
+var serverIp = "";
 
 var app = express();
 
@@ -40,7 +41,7 @@ function update(){
 			if(ret == true){
 				if(data.errcode != 0){
 					console.log(data.errmsg);
-				}
+				} 
 				
 				if(data.ip != null){
 					serverIp = data.ip;
@@ -51,7 +52,6 @@ function update(){
 				lastTickTime = 0;
 			}
 		});
-
 		var mem = process.memoryUsage();
 		var format = function(bytes) {  
               return (bytes/1024/1024).toFixed(2)+'MB';  

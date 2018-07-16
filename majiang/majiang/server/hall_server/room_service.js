@@ -2,7 +2,7 @@
  * @Author: zaccheus 
  * @Date: 2018-07-13 13:46:51 
  * @Last Modified by: zaccheus
- * @Last Modified time: 2018-07-13 15:20:06
+ * @Last Modified time: 2018-07-13 17:45:19
  */
 
 var express = require('express');
@@ -89,7 +89,6 @@ app.get('/register_gs',function(req,res){
 	var httpPort = req.query.httpPort;
 	var load = req.query.load;
 	var id = clientip + ":" + clientport;
-
 	if(serverMap[id]){
 		var info = serverMap[id];
 		if(info.clientport != clientport
